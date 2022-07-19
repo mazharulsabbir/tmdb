@@ -35,5 +35,9 @@ class PersonDb {
     }
   }
 
+  Future<Popular?> getPopularPersonDetail(int personId) {
+    return Future.value(null);
+  }
+
   deletePopular(Popular p) {}
 }

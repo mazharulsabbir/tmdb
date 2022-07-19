@@ -16,5 +16,6 @@ class GlobalBindings extends Bindings {
     // controllers
     Get.put(ConnectivityController());
     Get.lazyPut(() => PersonController(), fenix: true);
+    Get.lazyPut(() => PersonDetailController(), fenix: true);
   }
 }

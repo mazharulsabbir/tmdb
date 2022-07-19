@@ -1,20 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tmdb/data/model/person/person.dart';
 
 import '../../values/styles.dart';
+import '/controller/index.dart';
+import '/data/model/person/person.dart';
+import 'widget/about_person.dart';
+import 'widget/credit.dart';
+import 'widget/images.dart';
+import 'widget/text_container.dart';
 
-class PersonDetailsScreen extends StatelessWidget {
+class PersonDetailsScreen extends GetView<PersonDetailController> {
   const PersonDetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Person person = Get.arguments;
+    controller.getPersonDetailsById(person.id);
 
     return Scaffold(
       body: DefaultTabController(
-        length: 3,
+        length: 4,
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
@@ -33,7 +39,7 @@ class PersonDetailsScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                           child: CachedNetworkImage(
                             imageUrl:
-                                "https://image.tmdb.org/t/p/w500${person?.profilePath}",
+                                "https://image.tmdb.org/t/p/w500${person.profilePath}",
                             placeholder: (context, url) => const Center(
                                 child: CircularProgressIndicator()),
                             fit: BoxFit.cover,
@@ -69,28 +75,32 @@ class PersonDetailsScreen extends StatelessWidget {
                                 child: ClipOval(
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                        "https://image.tmdb.org/t/p/w500${person?.profilePath}",
+                                        "https://image.tmdb.org/t/p/w500${person.profilePath}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
+                              const SizedBox(height: 8),
                               Text(
                                 "${person.name}",
-                                style: customTextStyleTitle,
+                                style: customTextStyleTitle.copyWith(
+                                  fontSize: 18,
+                                ),
                               ),
-                              Text("${person.knownForDepartment}"),
                               const SizedBox(height: 12),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 5,
-                                ),
-                                child:
-                                    Text("${person.popularity} Known Credits"),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CustomTextContainer(
+                                    text: "${person.knownForDepartment}",
+                                    textColor: Theme.of(context).primaryColor,
+                                  ),
+                                  // const SizedBox(width: 8),
+                                  CustomTextContainer(
+                                    text: "${person.popularity} Known Credits",
+                                    textColor: Colors.white54,
+                                  ),
+                                ],
                               ),
                               const SizedBox(height: 20),
                             ],
@@ -103,12 +113,14 @@ class PersonDetailsScreen extends StatelessWidget {
               ),
               SliverPersistentHeader(
                 delegate: _SliverAppBarDelegate(
-                  const TabBar(
-                    labelColor: Colors.white,
+                  TabBar(
+                    labelColor: Theme.of(context).textTheme.bodyText1?.color,
                     unselectedLabelColor: Colors.grey,
                     indicatorSize: TabBarIndicatorSize.label,
-                    tabs: [
+                    isScrollable: true,
+                    tabs: const [
                       Tab(text: "About"),
+                      Tab(text: "Images"),
                       Tab(text: "Movies"),
                       Tab(text: "TV Shows"),
                     ],
@@ -118,17 +130,16 @@ class PersonDetailsScreen extends StatelessWidget {
               ),
             ];
           },
-          body: TabBarView(children: [
-            Container(
-              child: Text("About"),
+          body: controller.obx(
+            (state) => TabBarView(
+              children: [
+                AboutPersonWidget(person: state),
+                PersonImagesWidget(images: state?.otherImages),
+                PersonCreditWidget(casts: state?.movieCasts),
+                PersonCreditWidget(casts: state?.tvCasts),
+              ],
             ),
-            Container(
-              child: Text("Movies"),
-            ),
-            Container(
-              child: Text("TV Shows"),
-            ),
-          ]),
+          ),
         ),
       ),
     );
