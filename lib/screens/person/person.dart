@@ -11,7 +11,7 @@ class PeopleScreen extends GetView<PersonController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('People'),
+        title: const Text('Popular Persons'),
       ),
       body: controller.obx(
         (state) => GridView.custom(
@@ -26,16 +26,19 @@ class PeopleScreen extends GetView<PersonController> {
             (context, index) {
               if (index >= state!.length) {
                 //show loading indicator at last index
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.withOpacity(0.1)),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  margin: const EdgeInsets.all(5),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
+                return controller.loadingMore
+                    ? Container(
+                        decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Colors.grey.withOpacity(0.1)),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        margin: const EdgeInsets.all(5),
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : const SizedBox();
               }
               return PersonWidget(person: state[index]);
             },
