@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/person_controller.dart';
+import 'widget/person.dart';
 
 class PeopleScreen extends GetView<PersonController> {
   const PeopleScreen({Key? key}) : super(key: key);
@@ -13,15 +14,32 @@ class PeopleScreen extends GetView<PersonController> {
         title: const Text('People'),
       ),
       body: controller.obx(
-        (state) => ListView.builder(
+        (state) => GridView.custom(
           controller: controller.scroll,
-          itemCount: state?.length,
-          itemBuilder: (context, index) =>
-              controller.loadingMore && index == (state!.length - 1)
-                  ? const Center(child: CircularProgressIndicator())
-                  : ListTile(
-                      title: Text("${state?[index].name}"),
-                    ),
+          padding: const EdgeInsets.all(5),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1,
+          ),
+          childrenDelegate: SliverChildBuilderDelegate(
+            childCount: state != null ? state.length + 2 : 0,
+            (context, index) {
+              if (index >= state!.length) {
+                //show loading indicator at last index
+                return Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.withOpacity(0.1)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  margin: const EdgeInsets.all(5),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              return PersonWidget(person: state[index]);
+            },
+          ),
         ),
         onLoading: const Center(child: CircularProgressIndicator()),
         onEmpty: Center(
