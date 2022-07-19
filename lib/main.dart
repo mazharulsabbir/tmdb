@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -10,6 +11,8 @@ import 'values/index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Plugin must be initialized before using
+  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
 
   await GetStorage.init();
   await SystemChrome.setPreferredOrientations(

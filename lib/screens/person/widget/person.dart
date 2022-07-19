@@ -12,7 +12,7 @@ class PersonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (() => Get.to(const PersonDetailsScreen(), arguments: person)),
+      onTap: () => Get.to(() => const PersonDetailsScreen(), arguments: person),
       child: Stack(
         fit: StackFit.expand,
         children: [

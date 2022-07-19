@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  device_info: ^2.0.3
 
   # ui
   responsive_framework: ^0.2.0
@@ -36,6 +37,10 @@ dependencies:
   dio: ^4.0.6
   pretty_dio_logger: ^1.1.1
   connectivity_plus: ^2.3.6
+
+  flutter_downloader: ^1.8.1
+  path_provider: ^2.0.11
+  permission_handler: ^10.0.0
 
 dev_dependencies:
   flutter_test:

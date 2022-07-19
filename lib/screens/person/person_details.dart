@@ -15,8 +15,8 @@ class PersonDetailsScreen extends GetView<PersonDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    Person person = Get.arguments;
-    controller.getPersonDetailsById(person.id);
+    Person? person = Get.arguments;
+    controller.getPersonDetailsById(person?.id);
 
     return Scaffold(
       body: DefaultTabController(
@@ -28,7 +28,7 @@ class PersonDetailsScreen extends GetView<PersonDetailController> {
                 expandedHeight: 280.0,
                 floating: false,
                 pinned: true,
-                title: Text("${person.name}"),
+                title: Text("${person?.name}"),
                 flexibleSpace: FlexibleSpaceBar(
                   background: Stack(
                     fit: StackFit.expand,
@@ -39,7 +39,7 @@ class PersonDetailsScreen extends GetView<PersonDetailController> {
                           borderRadius: BorderRadius.circular(5),
                           child: CachedNetworkImage(
                             imageUrl:
-                                "https://image.tmdb.org/t/p/w500${person.profilePath}",
+                                "https://image.tmdb.org/t/p/w500${person?.profilePath}",
                             placeholder: (context, url) => const Center(
                                 child: CircularProgressIndicator()),
                             fit: BoxFit.cover,
@@ -75,14 +75,14 @@ class PersonDetailsScreen extends GetView<PersonDetailController> {
                                 child: ClipOval(
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                        "https://image.tmdb.org/t/p/w500${person.profilePath}",
+                                        "https://image.tmdb.org/t/p/w500${person?.profilePath}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                "${person.name}",
+                                "${person?.name}",
                                 style: customTextStyleTitle.copyWith(
                                   fontSize: 18,
                                 ),
@@ -92,12 +92,12 @@ class PersonDetailsScreen extends GetView<PersonDetailController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   CustomTextContainer(
-                                    text: "${person.knownForDepartment}",
+                                    text: "${person?.knownForDepartment}",
                                     textColor: Theme.of(context).primaryColor,
                                   ),
                                   // const SizedBox(width: 8),
                                   CustomTextContainer(
-                                    text: "${person.popularity} Known Credits",
+                                    text: "${person?.popularity} Known Credits",
                                     textColor: Colors.white54,
                                   ),
                                 ],
