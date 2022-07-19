@@ -23,6 +23,7 @@ ThemeData theme(BuildContext context) => ThemeData(
 ThemeData darkTheme(BuildContext context) => ThemeData(
       brightness: Brightness.dark,
       primarySwatch: Colors.amber,
+      primaryColor: Colors.amberAccent,
       scaffoldBackgroundColor: const Color(0xFF121212),
       backgroundColor: Colors.black,
       textTheme: const TextTheme(

@@ -51,9 +51,22 @@ class CreditCastWidget extends StatelessWidget {
                   "${casts?.name ?? casts?.title}",
                   style: customTextStyleTitle,
                 ),
-                subtitle: Text(
-                  "${casts?.voteAverage}",
-                  style: customTextStyleSubtitle,
+                dense: true,
+                subtitle: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.star, size: 12),
+                    const SizedBox(width: 2),
+                    Text(
+                      "${casts?.voteAverage}",
+                      style: customTextStyleSubtitle,
+                    ),
+                    // const SizedBox(width: 5),
+                    Text(
+                      "(${casts?.voteCount})",
+                      style: customTextStyleSubtitle,
+                    ),
+                  ],
                 ),
               ),
             ],
