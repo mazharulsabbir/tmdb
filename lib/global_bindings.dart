@@ -9,8 +9,8 @@ class GlobalBindings extends Bindings {
   @override
   void dependencies() {
     // di
-    Get.put(ApiService());
     Get.put(PersonDb());
+    Get.put(ApiService());
     Get.put(PersonRepository(Get.find(), Get.find()));
 
     // controllers
