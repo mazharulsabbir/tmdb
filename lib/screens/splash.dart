@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
@@ -35,8 +36,8 @@ class _SplashState extends State<Splash> {
         child: Center(
           child: Hero(
             tag: appIconTransparent,
-            child: Image.asset(
-              appIconTransparent,
+            child: CachedNetworkImage(
+              imageUrl: appIconTransparent,
               fit: BoxFit.fitWidth,
             ),
           ),

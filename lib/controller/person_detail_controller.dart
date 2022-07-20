@@ -8,9 +8,9 @@ class PersonDetailController extends GetxController with StateMixin<Person> {
   static PersonDetailController to = Get.find();
   final PersonRepository _repository = Get.find<PersonRepository>();
 
-  void getPersonDetailsById(int? id) => _getPersonDetail(id);
+  void getPersonDetailsById(int id) => _getPersonDetail(id);
 
-  Future<void> _getPersonDetail(int? personId) async {
+  Future<void> _getPersonDetail(int personId) async {
     update();
     try {
       final result = await _repository.getPopularPersonDetail(

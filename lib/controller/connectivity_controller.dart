@@ -25,6 +25,8 @@ class ConnectivityController extends GetxController {
       }
       update();
     });
+
+    subscription?.resume();
   }
 
   @override

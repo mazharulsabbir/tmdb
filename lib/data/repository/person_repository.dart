@@ -17,21 +17,23 @@ class PersonRepository {
     await _db.storePopular(person);
   }
 
-  Future<Popular> getPopularPerson({int page = 1}) async {
+  Future<Popular?> getPopularPerson({int page = 1}) async {
     if (ConnectivityController.to.isInternetAvailable) {
       final response = await _apiService.get(
         '/person/popular',
         query: "page=$page",
       );
       final popular = Popular.fromJson(response);
-      // await _db.storePopular(popular);
+
+      // store page into cache
+      await _db.storePopular(popular);
       return popular;
     } else {
-      return await _db.getPopular(page);
+      return _db.getPopular(page);
     }
   }
 
-  Future<Person> getPopularPersonDetail({required int? personId}) async {
+  Future<Person?> getPopularPersonDetail({required int personId}) async {
     if (ConnectivityController.to.isInternetAvailable) {
       final personDetails = await _apiService.get('/person/$personId');
       Person person = Person.fromJson(personDetails);
@@ -57,10 +59,12 @@ class PersonRepository {
         movieCasts: movieCredits,
       );
 
-      // await _db.storePopular(popular);
+      // store details into cache
+      _db.setPersonDetails(person);
+
       return person;
     } else {
-      return Future.error("No internet");
+      return _db.getPersonDetail(personId);
     }
   }
 }
