@@ -14,6 +14,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   device_info: ^2.0.3
+  share_plus: ^4.0.10
 
   # ui
   responsive_framework: ^0.2.0

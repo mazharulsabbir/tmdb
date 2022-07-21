@@ -9,6 +9,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PersonImageViewScreen extends StatefulWidget {
   final String? imageUrl;
@@ -166,7 +167,12 @@ class _PersonImageViewScreenState extends State<PersonImageViewScreen> {
             onPressed: () => _requestDownload("${widget.imageUrl}"),
             icon: const Icon(Icons.download),
           ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
+          IconButton(
+            onPressed: () {
+              Share.share('${widget.imageUrl}');
+            },
+            icon: const Icon(Icons.share),
+          ),
         ],
       ),
       body: SizedBox(
