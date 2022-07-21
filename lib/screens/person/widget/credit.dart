@@ -16,7 +16,7 @@ class PersonCreditWidget extends StatelessWidget {
       ),
       childrenDelegate: SliverChildBuilderDelegate(
         (context, index) => CreditCastWidget(casts: casts?[index]),
-        childCount: casts?.length,
+        childCount: casts?.length ?? 0,
       ),
     );
   }
