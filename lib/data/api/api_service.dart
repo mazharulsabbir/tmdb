@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 
@@ -42,6 +44,8 @@ class ApiService {
           response.data?['status_message'] ?? 'Failed to load data',
         );
       }
+    } on SocketException catch (e) {
+      return Future.error("Network connectivity error! Check your internet");
     } on dio.DioError catch (e) {
       debugPrint(e.toString());
       return Future.error(e.message);
@@ -79,6 +83,8 @@ class ApiService {
           response.data?['status_message'] ?? 'Failed to load data',
         );
       }
+    } on SocketException catch (e) {
+      return Future.error("Network connectivity error! Check your internet");
     } on dio.DioError catch (e) {
       debugPrint(e.toString());
       return Future.error(e.message);

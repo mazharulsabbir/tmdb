@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../values/index.dart';
@@ -35,7 +37,7 @@ class _SplashState extends State<Splash> {
         child: Center(
           child: Hero(
             tag: appIconTransparent,
-            child: Image.asset(
+            child: SvgPicture.asset(
               appIconTransparent,
               fit: BoxFit.fitWidth,
             ),

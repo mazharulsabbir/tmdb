@@ -55,7 +55,11 @@ class CreditCastWidget extends StatelessWidget {
                 subtitle: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Icon(Icons.star, size: 12),
+                    const Icon(
+                      Icons.star,
+                      size: 12,
+                      color: Colors.white70,
+                    ),
                     const SizedBox(width: 2),
                     Text(
                       "${casts?.voteAverage}",

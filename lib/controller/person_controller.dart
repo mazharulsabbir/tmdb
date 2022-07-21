@@ -30,7 +30,7 @@ class PersonController extends GetxController
     update();
     try {
       final result = await _repository.getPopularPerson(page: currentPage);
-      final bool emptyRepositories = result.results == null;
+      final bool emptyRepositories = result?.results == null;
 
       if (!getFirstData && emptyRepositories) {
         change(null, status: RxStatus.empty());
@@ -39,7 +39,7 @@ class PersonController extends GetxController
       } else {
         getFirstData = true;
 
-        _person = [..._person, ...result.results ?? []];
+        _person = [..._person, ...result?.results ?? []];
         change(_person, status: RxStatus.success());
       }
     } catch (e) {

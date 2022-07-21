@@ -16,7 +16,16 @@ class PersonDetailsScreen extends GetView<PersonDetailController> {
   @override
   Widget build(BuildContext context) {
     Person? person = Get.arguments;
-    controller.getPersonDetailsById(person?.id);
+    if (person?.id != null) {
+      controller.getPersonDetailsById(person!.id!);
+    } else {
+      Get.back();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Required params are missing'),
+        ),
+      );
+    }
 
     return Scaffold(
       body: DefaultTabController(
