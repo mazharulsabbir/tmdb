@@ -8,7 +8,7 @@ class PersonController extends GetxController
   static PersonController to = Get.find();
   final PersonRepository _repository = Get.find<PersonRepository>();
 
-  final _currentPage = RxInt(497);
+  final _currentPage = RxInt(1);
   int get currentPage => _currentPage.value;
 
   final _loadingMore = RxBool(false);
@@ -30,7 +30,8 @@ class PersonController extends GetxController
     update();
     try {
       final result = await _repository.getPopularPerson(page: currentPage);
-      debugPrint("$currentPage -> Last Page: ${result?.page}/${result?.totalPages}");
+      debugPrint(
+          "$currentPage -> Last Page: ${result?.page}/${result?.totalPages}");
       if (result != null && currentPage == result.totalPages) {
         lastPage = true;
       }
